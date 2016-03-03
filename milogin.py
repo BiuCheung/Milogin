@@ -16,11 +16,12 @@ def tryLoginMi():
 
 	homeRequest = requests.get('http://'+ host +'/cgi-bin/luci/web/home')
 	key = re.findall(r'key: \'(.*)\',',homeRequest.text)[0]
+	mac = re.findall(r'deviceId = \'(.*)\';',homeRequest.text)[0]
 
 	
 	aimurl = "http://"+host+"/cgi-bin/luci/api/xqsystem/login"
 
-	nonce = "0_00:88:65:3d:bd:22_"+ str(int(time.time())) +"_"+str(random.randint(1000,10000))
+	nonce = "0_"+ mac +"_"+ str(int(time.time())) +"_"+str(random.randint(1000,10000))
 
 	pwdtext = sys.argv[2]
 
